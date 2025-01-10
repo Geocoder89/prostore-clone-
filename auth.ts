@@ -35,7 +35,7 @@ providers: [
       // check if user exists and if the password matches
 
       if(user && user.password) {{
-        const isMatch = compareSync(credentials.password as string, user.password)
+        const isMatch = await compareSync(credentials.password as string, user.password)
 
         // check if password is correct if so, return user
 
@@ -129,7 +129,6 @@ callbacks: {
   authorized({request,auth}: any){
 
     // Array of regex patterns of paths we want to protect
-
     const protectedPaths = [
       /\/shipping-address/,
       /\/payment-method/,
@@ -140,16 +139,11 @@ callbacks: {
       /\/admin/,
     ];
 
-
     // Get pathname from the req URL object
+    const { pathname } = request.nextUrl;
 
-    const {pathname} = request.nextUrl
-
-    // check if user is not authenticated and accessing a protected path
-
-    if (!auth && protectedPaths.some((p)=>p.test(pathname))) {
-      return false
-    }
+    // Check if user is not authenticated and accessing a protected path
+    if (!auth && protectedPaths.some((p) => p.test(pathname))) return false;
     // check for session cart cookie, if not there create if not return true
 
     if(!request.cookies.get('sessionCartId')) {
