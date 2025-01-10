@@ -150,5 +150,3 @@ export function formUrlQuery({
   );
 }
 
-
-console.log(formatUUID('1234596997979797'))

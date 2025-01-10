@@ -151,7 +151,7 @@ export const getMyCart = async () => {
   // if there is a user it is assigned if not it gives undefined
   const userId = session?.user?.id ? (session.user.id as string) : undefined;
 
-  console.log(userId);
+
   //  Get user cart from db
 
   const cart = await prisma.cart.findFirst({
