@@ -18,6 +18,7 @@ export type Order = z.infer<typeof InsertOrderSchema> & {
   id: string;
   createdAt: Date;
   isPaid: boolean;
+  
   paidAt: Date | null;
   isDelivered: boolean
   deliveredAt: Date | null
